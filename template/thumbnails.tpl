@@ -13,8 +13,9 @@
 {assign var=rwidth value=$width}
 {assign var=rheight value=$height}
 {/if}
-{define_derivative name='derivative_params' width=$width height=$height crop=true}
+{define_derivative name='derivative_params' width=$width height=$height crop=false}
 {assign var=idx value=0+$START_ID}
+
 {foreach from=$thumbnails item=thumbnail}
 {assign var=derivative value=$pwg->derivative($derivative_params, $thumbnail.src_image)}
 {if !$derivative->is_cached()}
@@ -22,7 +23,7 @@
 {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
 {/if}
 {include file="grid_classes.tpl" width=$rwidth height=$rheight}
-<div class="col-outer {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}col-12{else}{$col_class}{/if}" data-grid-classes="{$col_class}">
+<div class="col-outer {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}col-12{else}{$col_class} grid-item p-1 m-0{/if}" data-grid-classes="{$col_class}">
     <div class="card card-thumbnail {if isset($thumbnail.path_ext)}path-ext-{$thumbnail.path_ext}{/if} {if isset($thumbnail.file_ext)}file-ext-{$thumbnail.file_ext}{/if}">
       <div class="h-100">
         <a href="{$thumbnail.URL}" data-index="{$idx}" class="ripple{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} d-block{/if}">

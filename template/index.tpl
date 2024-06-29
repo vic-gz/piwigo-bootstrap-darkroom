@@ -1,9 +1,22 @@
 <!-- Start of index.tpl -->
 {combine_script id='cookie' require='jquery' path='themes/bootstrap_darkroom/js/jquery.cookie.js' load='footer'}
 {combine_script id='equalheights' require='jquery' path='themes/bootstrap_darkroom/js/jquery.equalheights.js' load='footer'}
+{combine_script id='masonry' require='jquery' path='themes/bootstrap_darkroom/js/masonry.pkgd.min.js' load='footer'}
+
 {if get_device() != 'desktop'}
 {combine_script id='jquery.mobile-events' path='themes/bootstrap_darkroom/node_modules/jQuery-Touch-Events/src/jquery.mobile-events.min.js' require='jquery' load='footer'}
 {/if}
+
+{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'}
+<style>
+  .grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>
+{/if}
+
 {if !empty($PLUGIN_INDEX_CONTENT_BEFORE)}{$PLUGIN_INDEX_CONTENT_BEFORE}{/if}
 
     <nav class="navbar navbar-expand-lg navbar-contextual {$theme_config->navbar_contextual_style} {$theme_config->navbar_contextual_bg}{if $theme_config->page_header == 'fancy' && $theme_config->page_header_both_navs} navbar-transparent navbar-sm{/if} sticky-top mb-2">
@@ -235,8 +248,25 @@ $(document).ready(function() {
 
 {if !empty($THUMBNAILS)}
         <!-- Start of thumbnails -->
-        <div id="thumbnails" class="row">{$THUMBNAILS}</div>
-{footer_script require='jquery'}{literal}$(document).ready(function(){$('#content img').load(function(){$('#content .col-inner').equalHeights()})});{/literal}{/footer_script}
+        <div id="thumbnails" class="row {if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'}grid{/if}">{$THUMBNAILS}</div>
+
+{footer_script require='jquery' require='masonry'}{strip}
+    $(document).ready(function() {
+        $('#content img').load(function (){
+            $('#content .col-inner').equalHeights();
+        });
+
+{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'}
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-item',
+            percentPosition: true
+        });
+{/if}
+    });
+{/strip}{/footer_script}
+
+
 {if $theme_config->photoswipe}
         <div id="photoSwipeData">
 {assign var=idx value=0}
