@@ -3,10 +3,10 @@
   var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png"{if isset($maxRequests)}, max_requests = {$maxRequests}{/if};
 {/footer_script}
 {if $derivative_params->type == "thumb"}
-{assign var=width value=520}
-{assign var=height value=360}
-{assign var=rwidth value=260}
-{assign var=rheight value=180}
+{assign var=width value=600}
+{assign var=height value=800}
+{assign var=rwidth value=300}
+{assign var=rheight value=400}
 {else}
 {assign var=width value=$derivative_params->sizing->ideal_size[0]}
 {assign var=height value=$derivative_params->sizing->ideal_size[1]}

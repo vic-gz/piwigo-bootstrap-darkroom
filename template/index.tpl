@@ -139,7 +139,9 @@
 {/if}
 {if !empty($PLUGIN_INDEX_BUTTONS)}{foreach from=$PLUGIN_INDEX_BUTTONS item=button}<li>{$button}</li>{/foreach}{/if}
 {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
-{if ((!empty($CATEGORIES) && !isset($GDThumb)) || (!empty($THUMBNAILS) && !isset($GThumb) && !isset($GDThumb))) && ($theme_config->category_wells == 'never' || ($theme_config->category_wells == 'mobile_only' && get_device() == 'desktop'))}
+{* showGridListButton 控制Grid和List展示方式按钮的显示和隐藏,改瀑布流布局后，切换有bug，暂时不显示 *}
+{assign var="showGridListButton" value=false}
+{if $showGridListButton && ((!empty($CATEGORIES) && !isset($GDThumb)) || (!empty($THUMBNAILS) && !isset($GThumb) && !isset($GDThumb))) && ($theme_config->category_wells == 'never' || ($theme_config->category_wells == 'mobile_only' && get_device() == 'desktop'))}
                     <li id="btn-grid" class="nav-item{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} active{/if}">
                         <a class="nav-link" href="javascript:;" title="{'Grid view'|@translate}">
                             <i class="fas fa-th fa-fw"></i><span class="d-lg-none ml-2">{'Grid view'|@translate}</span>
