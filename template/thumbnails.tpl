@@ -31,7 +31,7 @@
         </a>
 {assign var=idx value=$idx+1}
 {if $SHOW_THUMBNAIL_CAPTION}
-        <div class="card-body{if !$theme_config->thumbnail_caption && isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} d-none{/if}{if !$theme_config->thumbnail_caption} list-view-only{/if}">
+        <div class="d-none card-body{if !$theme_config->thumbnail_caption && isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} d-none{/if}{if !$theme_config->thumbnail_caption} list-view-only{/if}">
             <h6 class="card-title">
 {if $theme_config->thumbnail_desc}
             {if !empty($thumbnail.DESCRIPTION)}
