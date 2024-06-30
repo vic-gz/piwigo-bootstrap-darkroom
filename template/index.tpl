@@ -7,8 +7,11 @@
 {combine_script id='jquery.mobile-events' path='themes/bootstrap_darkroom/node_modules/jQuery-Touch-Events/src/jquery.mobile-events.min.js' require='jquery' load='footer'}
 {/if}
 
-{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'}
+{if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}
 <style>
+  .grid-item {
+    margin-bottom: 0px;
+  }
   .grid-item img {
     width: 100%;
     height: auto;
@@ -200,7 +203,7 @@
 {/if}
     </div>
 {/if}
-    <div id="content" class="{if !empty($smarty.cookies.view) && $smarty.cookies.view == 'list'}content-list{else}content-grid ml-5 mr-5{/if}{if empty($CONTENT_DESCRIPTION)} pt-3{/if}">
+    <div id="content" class="{if !empty($smarty.cookies.view) && $smarty.cookies.view == 'list'}content-list{else}content-grid{/if}{if empty($CONTENT_DESCRIPTION)} pt-3{/if} mx-xl-5">
 {if !empty($CONTENT)}
     <!-- Start of content -->
     {$CONTENT}
@@ -248,22 +251,56 @@ $(document).ready(function() {
 
 {if !empty($THUMBNAILS)}
         <!-- Start of thumbnails -->
-        <div id="thumbnails" class="row {if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'}grid{/if}">{$THUMBNAILS}</div>
+        <div id="thumbnails" class="row {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}grid{/if}">{$THUMBNAILS}</div>
 
 {footer_script require='jquery' require='masonry'}{strip}
+
+    function requestFlowLayout(){
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-item',
+            percentPosition: true,
+            transitionDuration: 0
+        });
+    }
+
     $(document).ready(function() {
         $('#content img').load(function (){
             $('#content .col-inner').equalHeights();
         });
 
-{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'}
-        $('.grid').masonry({
-            itemSelector: '.grid-item',
-            columnWidth: '.grid-item',
-            percentPosition: true
-        });
+{if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}
+        requestFlowLayout();
 {/if}
+    
+
     });
+
+{* 图片是延时加载的，在加载完成后需要重新刷新瀑布流布局 *}
+{if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}
+    timeInv = 800;
+    lastSyncTime = new Date().getTime();
+    timerId = 0;
+    
+    function syncMasonry() {
+        curTime = new Date().getTime();
+        if (curTime - lastSyncTime > timeInv) {
+            requestFlowLayout();
+            lastSyncTime = 0;
+        } else {
+            lastSyncTime = curTime;
+            setTimeout(syncMasonry, timeInv + 20);
+        }
+    }
+    
+    $('.grid img').on('load', function () {
+        timerId = setTimeout(syncMasonry, timeInv + 20);
+    });
+    
+{/if}
+
+
+
 {/strip}{/footer_script}
 
 
@@ -310,6 +347,7 @@ function setupPhotoSwipe() {
             startPhotoSwipe(parseInt(pidMatch[2]) - 1);
         }
    }
+   
 }
 
 {if $theme_config->thumbnail_linkto == 'photoswipe' || ($theme_config->thumbnail_linkto == 'photoswipe_mobile_only' && get_device() != 'desktop')}
