@@ -115,6 +115,21 @@
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-menubar" aria-controls="navbar-menubar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="fas fa-bars"></span>
                 </button>
+
+              <div class="ml-5 collapse navbar-collapse" id="navbar-cats">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">首页</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/index.php?/recent_pics">最新</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/index.php?/most_visited">热门</a>
+                  </li>
+                </ul>
+              </div>
+
                 <div class="collapse navbar-collapse" id="navbar-menubar">
 {if $theme_config->quicksearch_navbar}
                   <form class="form-inline navbar-form ml-auto" role="search" action="{$ROOT_URL}qsearch.php" method="get" id="quicksearch" onsubmit="return this.q.value!='' && this.q.value!=qsearch_prompt;">
