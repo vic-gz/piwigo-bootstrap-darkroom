@@ -26,12 +26,12 @@
 <div class="col-outer {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}col-12{else}{$col_class} grid-item p-1 m-0{/if}" data-grid-classes="{$col_class}">
     <div class="card card-thumbnail {if isset($thumbnail.path_ext)}path-ext-{$thumbnail.path_ext}{/if} {if isset($thumbnail.file_ext)}file-ext-{$thumbnail.file_ext}{/if}" {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}style="border: 0px;"{/if}>
       <div class="h-100">
-        <a href="{$thumbnail.URL}" data-index="{$idx}" class="ripple{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} d-block{/if}">
+        <a href="{$thumbnail.URL}" data-index="{$idx}" class="ripple{if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else} d-block{/if}">
             <img class="{if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}card-img-left{else}card-img-top img-fluid rounded{/if} thumb-img" {if $derivative->is_cached()}src="{$derivative->get_url()}"{else}src="{$ROOT_URL}themes/bootstrap_darkroom/img/transparent.png" data-src="{$derivative->get_url()}"{/if} alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}">
         </a>
 {assign var=idx value=$idx+1}
 {if $SHOW_THUMBNAIL_CAPTION}
-        <div class="d-none card-body{if !$theme_config->thumbnail_caption && isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} d-none{/if}{if !$theme_config->thumbnail_caption} list-view-only{/if}">
+        <div class="card-body{if !$theme_config->thumbnail_caption && isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else} d-none {/if}{if !$theme_config->thumbnail_caption} list-view-only{/if}">
             <h6 class="card-title">
 {if $theme_config->thumbnail_desc}
             {if !empty($thumbnail.DESCRIPTION)}

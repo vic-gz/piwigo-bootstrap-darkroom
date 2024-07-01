@@ -142,7 +142,7 @@
 {* showGridListButton 控制Grid和List展示方式按钮的显示和隐藏,改瀑布流布局后，切换有bug，暂时不显示 *}
 {assign var="showGridListButton" value=false}
 {if $showGridListButton && ((!empty($CATEGORIES) && !isset($GDThumb)) || (!empty($THUMBNAILS) && !isset($GThumb) && !isset($GDThumb))) && ($theme_config->category_wells == 'never' || ($theme_config->category_wells == 'mobile_only' && get_device() == 'desktop'))}
-                    <li id="btn-grid" class="nav-item{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} active{/if}">
+                    <li id="btn-grid" class="nav-item{if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else} active{/if}">
                         <a class="nav-link" href="javascript:;" title="{'Grid view'|@translate}">
                             <i class="fas fa-th fa-fw"></i><span class="d-lg-none ml-2">{'Grid view'|@translate}</span>
                         </a>
@@ -282,8 +282,7 @@ $(document).ready(function() {
 {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}
     timeInv = 800;
     lastSyncTime = new Date().getTime();
-    timerId = 0;
-    
+
     function syncMasonry() {
         curTime = new Date().getTime();
         if (curTime - lastSyncTime > timeInv) {
@@ -296,7 +295,11 @@ $(document).ready(function() {
     }
     
     $('.grid img').on('load', function () {
-        timerId = setTimeout(syncMasonry, timeInv + 20);
+        setTimeout(syncMasonry, timeInv + 20);
+    });
+
+    $(window).resize(function(){
+        setTimeout(syncMasonry, timeInv + 20);
     });
     
 {/if}
