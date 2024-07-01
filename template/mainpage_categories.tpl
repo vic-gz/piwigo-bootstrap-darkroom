@@ -16,7 +16,8 @@
 {/if}
 {* this needs a fixed size else it messes up the grid on tablets *}
 {include file="grid_classes.tpl" width=260 height=180}
-  <div class="col-outer mt-3 {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}col-12{else}{$col_class}{/if}" data-grid-classes="{$col_class}">
+  {* <div class="col-outer mt-3 {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}col-12{else}{$col_class}{/if}" data-grid-classes="{$col_class}"> *}
+  <div class="col-outer mt-3 {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}col-12{else}col-outer mt-3 col-xxl-2 col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12{/if}" data-grid-classes="col-outer mt-3 col-xxl-2 col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
   <div class="card card-thumbnail {if isset($cat.path_ext)}path-ext-{$cat.path_ext}{/if} {if isset($cat.file_ext)}file-ext-{$cat.file_ext}{/if}">
       <div class="h-100">
         <a href="{$cat.URL}" class="ripple{if isset($smarty.cookies.view) and $smarty.cookies.view != 'list'} d-block{/if}">
