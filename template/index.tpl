@@ -1,6 +1,7 @@
 <!-- Start of index.tpl -->
 {combine_script id='cookie' require='jquery' path='themes/bootstrap_darkroom/js/jquery.cookie.js' load='footer'}
 {combine_script id='equalheights' require='jquery' path='themes/bootstrap_darkroom/js/jquery.equalheights.js' load='footer'}
+{combine_script id='imagesloaded' require='jquery' path='themes/bootstrap_darkroom/js/imagesloaded.pkgd.min.js' load='footer'}
 {combine_script id='masonry' require='jquery' path='themes/bootstrap_darkroom/js/masonry.pkgd.min.js' load='footer'}
 
 {if get_device() != 'desktop'}
@@ -223,6 +224,14 @@ $(document).ready(function() {
     <!-- End of categories -->
 {/if}
 
+{if !empty($CATEGORIES)}
+    {* 首页瀑布流布局展示图片 *}
+    <!-- Start of index_thumbnails -->
+    {include file="index_thumbnails.tpl" }
+    <!-- End of index_thumbnails -->
+{/if}
+
+
 {if !empty($category_search_results)}
 <div class="container{if $theme_config->fluid_width}-fluid{/if}">
     <h3 class="category_search_results">{'Album results for'|@translate} <em><strong>{$QUERY_SEARCH}</strong></em></h3>
@@ -275,7 +284,6 @@ $(document).ready(function() {
         requestFlowLayout();
 {/if}
     
-
     });
 
 {* 图片是延时加载的，在加载完成后需要重新刷新瀑布流布局 *}
@@ -304,10 +312,7 @@ $(document).ready(function() {
     
 {/if}
 
-
-
 {/strip}{/footer_script}
-
 
 {if $theme_config->photoswipe}
         <div id="photoSwipeData">
