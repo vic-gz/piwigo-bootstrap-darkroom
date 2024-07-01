@@ -2,7 +2,7 @@
     <div id="item_template" class="d-none col-outer col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 p-2 m-0" >
         <div class="card card-thumbnail path-ext-png file-ext-png" style="border: 0px;">
             <div class="h-100">
-                <a href="" class="ripple d-block" target="_view_detail">
+                <a href="" class="img-link ripple d-block" target="_view_detail">
                     <img class="item-img card-img-top img-fluid rounded thumb-img" src="" >
                 </a>
                 <div class="card-body d-none  list-view-only">
@@ -70,6 +70,7 @@
                         $.each(images, function(index, image) {
                             var itemDiv = $(itemHtml);
                             itemDiv.find('.item-img').attr('src', image.derivatives.medium.url).attr('alt', image.name); 
+                            itemDiv.find('.img-link').attr('href', image.page_url);
                             gallery.append(itemDiv); 
                         });
                         page++;

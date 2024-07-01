@@ -224,7 +224,7 @@ $(document).ready(function() {
     <!-- End of categories -->
 {/if}
 
-{if !empty($CATEGORIES)}
+{if !empty($is_homepage) && $is_homepage}
     {* 首页瀑布流布局展示图片 *}
     <!-- Start of index_thumbnails -->
     {include file="index_thumbnails.tpl" }
