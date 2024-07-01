@@ -1,5 +1,14 @@
-<div id="gallery" class="row mt-5 grid">
-    <div id="item_template" class="d-none col-outer col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 p-2 m-0" >
+<style>
+@media (min-width: 1680px) {
+.custom-col-5 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
+</style>
+
+<div id="gallery" class="row grid mt-5">
+    <div id="item_template" class="d-none col-outer custom-col-5 col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 p-2 m-0" >
         <div class="card card-thumbnail path-ext-png file-ext-png" style="border: 0px;">
             <div class="h-100">
                 <a href="" class="img-link ripple d-block" target="_view_detail">
