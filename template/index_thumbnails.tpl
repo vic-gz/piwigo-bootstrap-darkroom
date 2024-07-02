@@ -108,6 +108,10 @@
             }
         });
 
+        $(window).resize(debounce(function(){
+            initMasonry();
+        }, 800));
+
     }); 
 
 {/strip}{/footer_script}

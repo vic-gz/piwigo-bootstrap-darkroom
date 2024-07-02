@@ -21,6 +21,27 @@
 </style>
 {/if}
 
+{footer_script require='jquery'}{strip}
+    {* 
+      封装防抖方法 
+      func: 去抖动后执行的回调函数
+      delay: 去抖动的时长
+    *}
+    function debounce(func, delay) {
+        let timer;
+        return function () {
+            if (timer) {
+            clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+            func.apply(this, arguments); 
+            timer = null; 
+            }, delay);
+        };
+    }
+{/strip}{/footer_script}
+
+
 {if !empty($PLUGIN_INDEX_CONTENT_BEFORE)}{$PLUGIN_INDEX_CONTENT_BEFORE}{/if}
 
     <nav class="navbar navbar-expand-lg navbar-contextual {$theme_config->navbar_contextual_style} {$theme_config->navbar_contextual_bg}{if $theme_config->page_header == 'fancy' && $theme_config->page_header_both_navs} navbar-transparent navbar-sm{/if} sticky-top mb-2">
@@ -288,27 +309,14 @@ $(document).ready(function() {
 
 {* 图片是延时加载的，在加载完成后需要重新刷新瀑布流布局 *}
 {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}
-    timeInv = 800;
-    lastSyncTime = new Date().getTime();
 
-    function syncMasonry() {
-        curTime = new Date().getTime();
-        if (curTime - lastSyncTime > timeInv) {
-            requestFlowLayout();
-            lastSyncTime = 0;
-        } else {
-            lastSyncTime = curTime;
-            setTimeout(syncMasonry, timeInv + 20);
-        }
-    }
-    
-    $('.grid img').on('load', function () {
-        setTimeout(syncMasonry, timeInv + 20);
-    });
+    $('.grid img').on('load', debounce(function(){
+        requestFlowLayout();
+    }, 800));
 
-    $(window).resize(function(){
-        setTimeout(syncMasonry, timeInv + 20);
-    });
+    $(window).resize( debounce(function(){
+        requestFlowLayout();
+    }, 800));
     
 {/if}
 
