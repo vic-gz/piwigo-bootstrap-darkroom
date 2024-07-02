@@ -113,9 +113,10 @@
             }
         });
 
-        $(window).resize(debounce(function(){
+        const onResize = debounce(function(){
             initMasonry();
-        }, 800));
+        }, 800);
+        $(window).resize(onResize);
 
     }); 
 

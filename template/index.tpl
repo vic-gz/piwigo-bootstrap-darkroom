@@ -313,15 +313,15 @@ $(document).ready(function() {
 
 {* 图片是延时加载的，在加载完成后需要重新刷新瀑布流布局 *}
 {if isset($smarty.cookies.view) and $smarty.cookies.view == 'list'}{else}
-
-    $('.grid img').on('load', debounce(function(){
+    const onGridImgLoad = debounce(function(){
         requestFlowLayout();
-    }, 800));
+    }, 800);
+    $('.grid img').on('load', onGridImgLoad);
 
-    $(window).resize( debounce(function(){
+    const onGridResize = debounce(function(){
         requestFlowLayout();
-    }, 800));
-    
+    }, 800);
+    $(window).resize(onGridResize);
 {/if}
 
 {/strip}{/footer_script}
