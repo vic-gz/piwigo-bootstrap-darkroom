@@ -289,10 +289,14 @@ $(document).ready(function() {
 
     function requestFlowLayout(){
         $('.grid').masonry({
+            animate: false, 
             itemSelector: '.grid-item',
             columnWidth: '.grid-item',
             percentPosition: true,
-            transitionDuration: 0
+            transitionDuration: 0,
+            resizeable: true,
+            singleMode: true,
+            horizontalOrder: true
         });
     }
 

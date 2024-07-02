@@ -35,9 +35,14 @@
     function initMasonry() {
         var grid = document.querySelector('.grid');
         var msnry = new Masonry(grid, {
+          animate: false, 
           itemSelector: '.grid-item',
           columnWidth: '.grid-item',
-          percentPosition: true
+          percentPosition: true,
+          transitionDuration: 0,
+          resizeable: true,
+          singleMode: true,
+          horizontalOrder: true
         });
     
         {* // Use imagesLoaded to ensure all images are loaded before layout *}
