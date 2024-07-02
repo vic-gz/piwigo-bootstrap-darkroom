@@ -46,6 +46,20 @@
         });
       }
     
+      var thTimeInv = 800;
+      var thLastSyncTime = new Date().getTime();
+  
+      function thSyncMasonry() {
+          curTime = new Date().getTime();
+          if (curTime - thLastSyncTime > thTimeInv) {
+            initMasonry();
+              thLastSyncTime = 0;
+          } else {
+            thLastSyncTime = curTime;
+              setTimeout(thSyncMasonry, thTimeInv + 20);
+          }
+      }
+
     function getItemHtml() {
         var tItem = $("#item_template");
         var html = tItem.prop("outerHTML");
@@ -106,6 +120,10 @@
             if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
                 loadImages();
             }
+        });
+
+        $(window).resize(function(){
+            setTimeout(thSyncMasonry, thTimeInv + 20);
         });
 
     }); 
