@@ -83,7 +83,11 @@
                         var gallery = $('#gallery');
                         $.each(images, function(index, image) {
                             var itemDiv = $(itemHtml);
-                            itemDiv.find('.item-img').attr('src', image.derivatives.medium.url).attr('alt', image.name); 
+                            var img = itemDiv.find('.item-img');
+                            img.attr('width', image.derivatives.medium.width+'px');
+                            img.attr('height', image.derivatives.medium.height+'px"');
+                            img.attr('src', image.derivatives.medium.url);
+                            {* img.attr('alt', image.name);  *}
                             itemDiv.find('.img-link').attr('href', image.page_url);
                             gallery.append(itemDiv); 
                         });
