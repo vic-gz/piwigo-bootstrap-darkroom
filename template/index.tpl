@@ -18,6 +18,16 @@
     height: auto;
     display: block;
   }
+
+  .fixed-bottom-footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #f8f9fa;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 1030;
+    }
+
 </style>
 {/if}
 
@@ -431,4 +441,7 @@ $('.card-thumbnail').find('img[src*="pwg_representative"]').each(function() {
 </div>
 
 {if !empty($PLUGIN_INDEX_CONTENT_AFTER)}{$PLUGIN_INDEX_CONTENT_AFTER}{/if}
+{* add an empty space to make room for the footer *}
+<div class="mt-5"></div>
+
 <!-- End of index.tpl -->

@@ -1,5 +1,5 @@
         <!-- Start of footer.tpl -->
-        <div class="copyright container{if $theme_config->fluid_width}-fluid{/if}">
+        <div class="copyright container{if $theme_config->fluid_width}-fluid{/if} fixed-bottom-footer {$theme_config->navbar_contextual_bg}">
             <div class="text-center">
 {if isset($debug.TIME)}
                 {'Page generated in'|@translate} {$debug.TIME} ({$debug.NB_QUERIES} {'SQL queries in'|@translate} {$debug.SQL_TIME}) -
